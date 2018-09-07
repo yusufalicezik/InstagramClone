@@ -2,9 +2,11 @@ package com.yusufalicezik.lenovo.instagramclone.Home
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.nostra13.universalimageloader.core.ImageLoader
 import com.yusufalicezik.lenovo.instagramclone.R
 import com.yusufalicezik.lenovo.instagramclone.utils.BottomNavigationViewHelper
 import com.yusufalicezik.lenovo.instagramclone.utils.HomePagerAdapter
+import com.yusufalicezik.lenovo.instagramclone.utils.UniversalImageLoader
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -17,8 +19,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        initUnivImageLoader()
         setupNavigationView()
         setupHomeViewPager()
+
 
     }
 
@@ -45,4 +49,10 @@ class HomeActivity : AppCompatActivity() {
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
     }
+    private fun initUnivImageLoader()
+    {
+        var universalImageLoader= UniversalImageLoader(this)
+        ImageLoader.getInstance().init(universalImageLoader.config) //Universal class ında yaptıgımız konfigurasyon ayarlarını çektik.
+    }
+
 }
