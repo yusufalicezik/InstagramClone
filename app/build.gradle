@@ -31,6 +31,8 @@ dependencies {
 
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -44,4 +46,16 @@ dependencies {
 
     //3. parti unversal image loader.
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //greenRobot eventbus kütüphanesi
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+
+    //3. parti Firebase Ui kütüphanesi-tel ile giriş için
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "40122458474",
+    "firebase_url": "https://kotlininstagramclone-98c8c.firebaseio.com",
+    "project_id": "kotlininstagramclone-98c8c",
+    "storage_bucket": "kotlininstagramclone-98c8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40122458474:android:9e6c93917c29b947",
+        "android_client_info": {
+          "package_name": "com.yusufalicezik.lenovo.instagramclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40122458474-v2ufh36c9qi1crqcdab370s823cgr5ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yusufalicezik.lenovo.instagramclone",
+            "certificate_hash": "bdf16e94abe297f5446dc6da9f78984549858c91"
+          }
+        },
+        {
+          "client_id": "40122458474-k28gd1k6u68eskb29ntv4gf3mn4m8u9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3elW2AC2jvNO20kznoyAUF3Lf8qpVnUE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40122458474-k28gd1k6u68eskb29ntv4gf3mn4m8u9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
