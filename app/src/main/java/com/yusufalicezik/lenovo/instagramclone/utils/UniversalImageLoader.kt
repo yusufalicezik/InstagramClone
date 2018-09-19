@@ -31,6 +31,8 @@ class UniversalImageLoader(val mContext:Context) {
                     .cacheOnDisk(true).resetViewBeforeLoading(true)
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .displayer(FadeInBitmapDisplayer(400))
+                    .considerExifParams(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
                     .build()
 
 

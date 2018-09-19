@@ -22,7 +22,7 @@ class NewsActivity : AppCompatActivity() {
     }
 
 
-    fun setupNavigationView()
+    /*   fun setupNavigationView()
     {
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
         BottomNavigationViewHelper.setupNavigation(this,bottomNavigationView)
@@ -30,4 +30,5 @@ class NewsActivity : AppCompatActivity() {
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
     }
+    */
 }

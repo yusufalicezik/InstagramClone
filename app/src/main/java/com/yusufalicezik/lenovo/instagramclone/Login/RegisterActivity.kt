@@ -10,7 +10,9 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.yusufalicezik.lenovo.instagramclone.Home.HomeActivity
 import com.yusufalicezik.lenovo.instagramclone.Model.Users
 
 import com.yusufalicezik.lenovo.instagramclone.R
@@ -25,11 +27,16 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
     lateinit var mRef:DatabaseReference
 
+    lateinit var mAuthListener:FirebaseAuth.AuthStateListener
+    lateinit var mAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        setupAuthListener()
         mRef=FirebaseDatabase.getInstance().reference
+        mAuth = FirebaseAuth.getInstance()
 
         //hata düzeltme
         manager=supportFragmentManager
@@ -44,6 +51,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
         tvGirisYap.setOnClickListener {
             var intent= Intent(applicationContext,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
+            finish()
         }
 
 
@@ -136,20 +144,20 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                                     }
                                 }
 
-                                //breakle fordan çıkar kontrol yaparız.
-                                if(ceptelefonuKullanimdaMi==false)
-                                {
-                                    loginRoot.visibility=View.GONE
-                                    loginContainer.visibility=View.VISIBLE
-                                    var transaction = supportFragmentManager.beginTransaction()
-                                    transaction.replace(R.id.loginContainer, TelefonKoduGirFragment())
-                                    transaction.addToBackStack("telefonKoduGirFragmentEklendi.")
-                                    transaction.commit()
 
-                                    //tıklayınca yayın yap.
-                                    EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(etGirisYontemi.text.toString(), null, null, null, false))
-                                }
+                            }
+                            //breakle fordan çıkar kontrol yaparız.
+                            if(ceptelefonuKullanimdaMi==false)
+                            {
+                                loginRoot.visibility=View.GONE
+                                loginContainer.visibility=View.VISIBLE
+                                var transaction = supportFragmentManager.beginTransaction()
+                                transaction.replace(R.id.loginContainer, TelefonKoduGirFragment())
+                                transaction.addToBackStack("telefonKoduGirFragmentEklendi.")
+                                transaction.commit()
 
+                                //tıklayınca yayın yap.
+                                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(etGirisYontemi.text.toString(), null, null, null, false))
                             }
 
                         }
@@ -189,18 +197,19 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                                     }
                                 }
 
-                                if(eMailKullanımdaMı==false)
-                                {
-                                    loginRoot.visibility=View.GONE
-                                    loginContainer.visibility=View.VISIBLE
-                                    var transaction=supportFragmentManager.beginTransaction()
-                                    transaction.replace(R.id.loginContainer,KayitFragment())
-                                    transaction.addToBackStack("emailileGirFragmentEklendi.")
-                                    transaction.commit()
 
-                                    //tıklayınca yayın yap.
-                                    EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(null,etGirisYontemi.text.toString(),null,null,true))
-                                }
+                            }
+                            if(eMailKullanımdaMı==false)
+                            {
+                                loginRoot.visibility=View.GONE
+                                loginContainer.visibility=View.VISIBLE
+                                var transaction=supportFragmentManager.beginTransaction()
+                                transaction.replace(R.id.loginContainer,KayitFragment())
+                                transaction.addToBackStack("emailileGirFragmentEklendi.")
+                                transaction.commit()
+
+                                //tıklayınca yayın yap.
+                                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(null,etGirisYontemi.text.toString(),null,null,true))
                             }
 
                         }
@@ -252,5 +261,39 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
             return false
 
         return android.util.Patterns.PHONE.matcher(kontrolEdilecekTelefon).matches()
+    }
+
+    private fun setupAuthListener() {
+        mAuthListener=object : FirebaseAuth.AuthStateListener{
+            override fun onAuthStateChanged(p0: FirebaseAuth) {
+                //her giriş çıkışta tetiklenir.
+
+                var user= FirebaseAuth.getInstance().currentUser
+                if(user!=null)
+                {
+                    var intent=Intent(applicationContext, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                    finish()
+                }else
+                {
+
+                }
+            }
+
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener (mAuthListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(mAuthListener!=null)
+        {
+            mAuth.removeAuthStateListener(mAuthListener)
+        }
+
     }
 }
